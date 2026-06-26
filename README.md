@@ -78,6 +78,10 @@ If you want to add app-specific blocks instead of shared primitives, run the sha
 
 ### Cloudflare via Alchemy
 
+```bash
+pnpm --filter @labs/infra exec alchemy configure || login
+```
+
 - Target: web + server
 - Dev: pnpm run dev
 - Deploy: pnpm run deploy

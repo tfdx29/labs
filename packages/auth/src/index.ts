@@ -10,7 +10,6 @@ export function createAuth() {
   return betterAuth({
     database: drizzleAdapter(db, {
       provider: "sqlite",
-
       schema: schema,
     }),
     trustedOrigins: [env.CORS_ORIGIN],
@@ -31,6 +30,9 @@ export function createAuth() {
         sameSite: "none",
         secure: true,
         httpOnly: true,
+      },
+      database: {
+        generateId: "uuid",
       },
       // uncomment crossSubDomainCookies setting when ready to deploy and replace <your-workers-subdomain> with your actual workers subdomain
       // https://developers.cloudflare.com/workers/wrangler/configuration/#workersdev

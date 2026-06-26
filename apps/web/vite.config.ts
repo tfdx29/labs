@@ -1,12 +1,27 @@
+import dotenv from "dotenv";
 import tailwindcss from "@tailwindcss/vite";
 import { tanstackRouter } from "@tanstack/router-plugin/vite";
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 import { VitePWA } from "vite-plugin-pwa";
 
+dotenv.config();
+
+const target = process.env.VITE_SERVER_URL!;
+
 export default defineConfig({
   server: {
-    port: 3001,
+    port: 5173,
+    proxy: {
+      "/api": {
+        target,
+        changeOrigin: true,
+      },
+      "/rpc": {
+        target,
+        changeOrigin: true,
+      },
+    },
   },
   resolve: {
     tsconfigPaths: true,
