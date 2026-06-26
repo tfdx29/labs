@@ -1,0 +1,32 @@
+{
+  "name": "labs",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "type": "module",
+  "scripts": {
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "check-types": "turbo check-types",
+    "dev:web": "turbo -F web dev",
+    "dev:server": "turbo -F server dev",
+    "db:generate": "turbo -F @labs/db db:generate",
+    "deploy": "turbo -F @labs/infra deploy",
+    "destroy": "turbo -F @labs/infra destroy"
+  },
+  "dependencies": {
+    "@labs/env": "workspace:*",
+    "dotenv": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "catalog:",
+    "@labs/config": "workspace:*",
+    "@types/node": "catalog:",
+    "turbo": "^2.9.16",
+    "typescript": "catalog:"
+  },
+  "packageManager": "pnpm@10.18.1"
+}
