@@ -14,10 +14,12 @@ if (process.env.NODE_ENV === "development" || !process.env.NODE_ENV) {
 const app = await alchemy("labs");
 
 const db = await D1Database("database", {
+  name: "labs-db",
   migrationsDir: "../../packages/db/src/migrations",
 });
 
 export const server = await Worker("server", {
+  name: "labs-api",
   cwd: "../../apps/server",
   entrypoint: "src/index.ts",
   compatibility: "node",
@@ -34,6 +36,7 @@ export const server = await Worker("server", {
 });
 
 export const web = await Vite("web", {
+  name: "labs",
   cwd: "../../apps/web",
   assets: "dist",
   bindings: {
@@ -41,7 +44,6 @@ export const web = await Vite("web", {
   },
 });
 
-console.log(`Web    -> ${web}`);
 console.log(`Web    -> ${web.url}`);
 console.log(`Server -> ${server.url}`);
 
