@@ -5,8 +5,11 @@ import { D1Database } from "alchemy/cloudflare";
 import { config } from "dotenv";
 
 config({ path: "./.env" });
-config({ path: "../../apps/web/.env" });
-config({ path: "../../apps/server/.env" });
+
+if (process.env.NODE_ENV === "development" || !process.env.NODE_ENV) {
+  config({ path: "../../apps/web/.env" });
+  config({ path: "../../apps/server/.env" });
+}
 
 const app = await alchemy("labs");
 
@@ -38,6 +41,7 @@ export const web = await Vite("web", {
   },
 });
 
+console.log(`Web    -> ${web}`);
 console.log(`Web    -> ${web.url}`);
 console.log(`Server -> ${server.url}`);
 
