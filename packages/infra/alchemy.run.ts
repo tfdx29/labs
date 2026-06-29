@@ -39,8 +39,10 @@ export const web = await Vite("web", {
   name: "labs",
   cwd: "../../apps/web",
   assets: "dist",
+  entrypoint: "src/worker.ts",
   bindings: {
-    VITE_SERVER_URL: server.url!,
+    VITE_SERVER_URL: alchemy.env.CORS_ORIGIN!,
+    SERVER: server,
   },
 });
 
