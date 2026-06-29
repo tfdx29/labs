@@ -9,6 +9,9 @@ export const Route = createFileRoute("/_auth")({
     if (!session.data) {
       throw redirect({
         to: "/login",
+        search: {
+          redirect: location.pathname,
+        },
       });
     }
     return { session };

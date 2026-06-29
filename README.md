@@ -61,7 +61,7 @@ React web apps in this stack share shadcn/ui primitives through `packages/ui`.
 Run this from the project root to add more primitives to the shared UI package:
 
 ```bash
-npx shadcn@latest add accordion dialog popover sheet table -c packages/ui
+pnpm --filter @labs/ui exec pnpm dlx shadcn@latest add accordion dialog popover sheet table
 ```
 
 Import shared components like this:
@@ -69,6 +69,25 @@ Import shared components like this:
 ```tsx
 import { Button } from "@labs/ui/components/button";
 ```
+
+### Apply custom presets
+
+To apply a custom preset to the shared UI package, since it is a pure library workspace and lacks a framework configuration in its root directory, you must temporarily bypass the framework check:
+
+1. **Create a dummy configuration file:**
+   ```bash
+   echo "export default {}" > packages/ui/vite.config.ts
+   ```
+
+2. **Run the apply command:**
+   ```bash
+   pnpm --filter @labs/ui exec pnpm dlx shadcn@latest apply --preset <PRESET_ID>
+   ```
+
+3. **Delete the dummy configuration file:**
+   ```bash
+   rm packages/ui/vite.config.ts
+   ```
 
 ### Add app-specific blocks
 
