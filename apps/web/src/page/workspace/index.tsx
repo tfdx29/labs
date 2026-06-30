@@ -13,6 +13,8 @@ import { orpc } from "@/utils/orpc";
 import { Loader2, Trash2, Pencil, Check, X, Plus } from "lucide-react";
 import { useState, type SubmitEvent } from "react";
 import { toast } from "sonner";
+import { BrailleLoader } from "@labs/ui/components/braille-loader";
+import Loader from "@/components/loader";
 
 const WorkspacePage = () => {
   const [newWorkspaceName, setNewWorkspaceName] = useState("");
@@ -162,7 +164,7 @@ const WorkspacePage = () => {
 
             {workspaces.isLoading ? (
               <div className="flex justify-center py-8">
-                <Loader2 className="h-8 w-8 animate-spin" />
+                <Loader />
               </div>
             ) : workspaces.data?.length === 0 ? (
               <p className="text-center text-muted-foreground py-8 border border-dashed rounded-md">

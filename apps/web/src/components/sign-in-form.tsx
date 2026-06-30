@@ -115,6 +115,15 @@ export default function SignInForm({
             )}
           </form.Field>
         </div>
+        <div
+          className="cf-turnstilex"
+          data-sitekey="0x4AAAAAADtNGAtGnB7Rvfmu"
+          data-theme="light"
+          data-size="normal"
+          data-callback="onTurnstileSuccess"
+          data-error-callback="onTurnstileError"
+          data-expired-callback="onTurnstileExpired"
+        ></div>
 
         <form.Subscribe
           selector={(state) => ({

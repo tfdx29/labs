@@ -16,7 +16,6 @@ export const Route = createFileRoute("/login")({
 
 function RouteComponent() {
   const [showSignIn, setShowSignIn] = useState(true);
-  // 1. Grab the redirect parameter here
   const { redirect } = Route.useSearch();
 
   return showSignIn ? (
