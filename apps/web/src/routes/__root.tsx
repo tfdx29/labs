@@ -1,5 +1,6 @@
 import type { AppRouterClient } from "@labs/api/routers/index";
 import { Toaster } from "@labs/ui/components/sonner";
+import { TooltipProvider } from "@labs/ui/components/tooltip";
 import { createORPCClient } from "@orpc/client";
 import { createTanstackQueryUtils } from "@orpc/tanstack-query";
 import type { QueryClient } from "@tanstack/react-query";
@@ -57,11 +58,10 @@ function RootComponent() {
         disableTransitionOnChange
         storageKey="vite-ui-theme"
       >
-        <div className="grid grid-rows-[auto_1fr] h-svh">
-          <Header />
+        <TooltipProvider>
           <Outlet />
-        </div>
-        <Toaster richColors closeButton />
+          <Toaster richColors closeButton />
+        </TooltipProvider>
       </ThemeProvider>
       <TanStackRouterDevtools position="bottom-left" />
       <ReactQueryDevtools position="bottom" buttonPosition="bottom-right" />

@@ -1,7 +1,9 @@
-import { useState } from "react"
-import { RiArrowRightLine, RiMenuLine } from "@remixicon/react"
+import { useEffect, useState } from "react";
+import { RiArrowRightLine, RiMenuLine } from "@remixicon/react";
+import { useTheme } from "next-themes";
+import { Sun, Moon } from "lucide-react";
 
-import { Button } from "@labs/ui/components/button"
+import { Button } from "@labs/ui/components/button";
 import {
   Sheet,
   SheetClose,
@@ -10,17 +12,48 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@labs/ui/components/sheet"
+} from "@labs/ui/components/sheet";
 
 const navLinks = [
   { label: "Product", href: "#" },
   { label: "Solutions", href: "#" },
   { label: "Pricing", href: "#" },
   { label: "Resources", href: "#" },
-]
+];
+
+function ThemeToggleSelect() {
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return <div className="size-8 bg-transparent border border-input" />;
+  }
+
+  const isDark = theme === "dark";
+
+  return (
+    <Button
+      variant="outline"
+      size="icon"
+      className="size-8 p-0 border border-input bg-transparent hover:bg-accent flex items-center justify-center rounded-none cursor-pointer rounded-2xl"
+      onClick={() => setTheme(isDark ? "light" : "dark")}
+      aria-label="Toggle theme"
+    >
+      {isDark ? (
+        <Moon className="size-4 text-foreground" />
+      ) : (
+        <Sun className="size-4 text-foreground" />
+      )}
+    </Button>
+  );
+}
 
 export function HeaderBlock() {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
 
   return (
     <header className="sticky top-0 z-30 w-full border-b border-border bg-background/80 backdrop-blur">
@@ -49,18 +82,23 @@ export function HeaderBlock() {
 
         <div className="ml-auto hidden items-center gap-2 md:flex">
           <Button
-            render={<a href="#" />}
+            render={<a href="/login" />}
             nativeButton={false}
             variant="ghost"
             size="sm"
-            className="text-muted-foreground hover:text-foreground"
+            className="text-muted-foreground hover:text-foreground "
           >
             Sign in
           </Button>
-          <Button render={<a href="#" />} nativeButton={false} size="sm">
+          <Button
+            render={<a href="/register" />}
+            nativeButton={false}
+            size="sm"
+          >
             Get Started
             <RiArrowRightLine data-icon="inline-end" aria-hidden="true" />
           </Button>
+          <ThemeToggleSelect />
         </div>
 
         <Sheet open={open} onOpenChange={setOpen}>
@@ -106,12 +144,12 @@ export function HeaderBlock() {
               ))}
             </nav>
 
-            <SheetFooter>
+            <SheetFooter className="flex flex-col gap-2">
               <SheetClose
                 nativeButton={false}
                 render={
                   <Button
-                    render={<a href="#" />}
+                    render={<a href="/login" />}
                     nativeButton={false}
                     variant="outline"
                     className="w-full"
@@ -124,7 +162,7 @@ export function HeaderBlock() {
                 nativeButton={false}
                 render={
                   <Button
-                    render={<a href="#" />}
+                    render={<a href="/register" />}
                     nativeButton={false}
                     className="w-full"
                   />
@@ -133,13 +171,15 @@ export function HeaderBlock() {
                 Get Started
                 <RiArrowRightLine data-icon="inline-end" aria-hidden="true" />
               </SheetClose>
+              <div className="mt-2 flex w-full justify-center">
+                <ThemeToggleSelect />
+              </div>
             </SheetFooter>
           </SheetContent>
         </Sheet>
       </div>
     </header>
-  )
+  );
 }
 
-export default HeaderBlock
-
+export default HeaderBlock;
